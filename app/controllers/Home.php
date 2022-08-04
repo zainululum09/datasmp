@@ -48,6 +48,7 @@ class Home extends Controller
             ];
 
             if (isset($_POST['save'])) {
+                // Testing
                 var_dump($_POST);
             } else {
                 $this->view('layout/head', $data);
