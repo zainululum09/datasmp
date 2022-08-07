@@ -281,4 +281,23 @@ class Base_model
         $this->db->query($sql);
         return $this->db->resultset();
     }
+
+    public function saveAbsen()
+    {
+        for ($i = 0; $i <= count($_POST['nis']); $i++) :
+            if ($_POST['kehadiran'][$i] != "H" && $_POST['nis'][$i] != null) {
+                if (date('mm', time()) > 7) {
+                    $smt = 1;
+                } else {
+                    $smt = 2;
+                }
+                $query = "INSERT INTO `absensi` (`time`, `nis`,`kelas`, `absen`,`semester`,`ket`) VALUES ('" . time() . "','" . $_POST['nis'][$i] . "','" . $_POST['kelas'] . "','" . $_POST['kehadiran'][$i] . "','" . $smt . "','" . $_POST['ket'][$i] . "')";
+                var_dump($query);
+                // die;
+                $this->db->query($query);
+                $this->db->execute();
+            }
+        endfor;
+        redirect();
+    }
 }

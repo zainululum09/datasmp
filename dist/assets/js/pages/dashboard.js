@@ -121,6 +121,7 @@ $(document).ready(function(){
         kelas : kelas
       },
       success: function(data){
+        $('#setKelas').val(kelas)
         $('.save_absen').removeClass('d-none')
         $('#absensi_siswa').html(data)
       }

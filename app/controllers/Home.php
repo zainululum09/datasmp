@@ -70,12 +70,9 @@ class Home extends Controller
             ];
 
             if (isset($_POST['save'])) {
-                for ($i = 0; $i <= count($_POST['nis']); $i++) :
-                    if ($_POST['kehadiran'][$i] != "H" && $_POST['nis'][$i] != null) {
-                        $query = "INSERT INTO `absen` (`time`, `nis`, `absen`, `ket`) VALUES (" . time() . "," . $_POST['nis'][$i] . "," . $_POST['kehadiran'][$i] . "," . $_POST['ket'][$i] . ")";
-                        var_dump($query);
-                    }
-                endfor;
+                // var_dump($_POST);
+                // die;
+                $this->model('Base_model')->saveAbsen();
             } else {
                 $this->view('layout/head', $data);
                 $this->view('home/absensi', $data);

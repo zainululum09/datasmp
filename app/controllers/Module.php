@@ -52,7 +52,6 @@ class Module extends Controller
         foreach ($this->model('Base_model')->getsiswakelas() as $row) :
             $output .= '<tr>
             
-            <input type="hidden" name="tanggal[' . $i . ']" value="' . date("d-m-Y") . '">
             <input type="hidden" value="' . $row['nis'] . '" name="nis[' . $i . ']">
                     <td class="text-end">' . $i . '</td>
                     <td class="text-center">' . $row['nis'] . '</td>

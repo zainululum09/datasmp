@@ -13,6 +13,7 @@
             </div>
         </div>
         <form method="post">
+            <input type="hidden" name="kelas" id="setKelas">
             <div class="row">
                 <div class="col-12" id="absensi_siswa">
 
