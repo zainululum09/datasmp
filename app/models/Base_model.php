@@ -253,7 +253,7 @@ class Base_model
 
     public function cari_siswa($nama)
     {
-        $sql = "SELECT * FROM `siswa` WHERE `nama` LIKE '%$nama%'";
+        $sql = "SELECT * FROM `siswa` WHERE `nama` LIKE '%$nama%' OR `nis` LIKE '%$nama%'";
         $this->db->query($sql);
         return $this->db->resultset();
     }
