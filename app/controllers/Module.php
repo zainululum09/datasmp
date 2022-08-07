@@ -58,7 +58,7 @@ class Module extends Controller
                     <td class="text-center">' . $row['nis'] . '</td>
                     <td class="text-center">' . $row['nisn'] . '</td>
                     <td>' . $row['nama'] . '</td>
-                    <td class="d-flex justify-content-around">
+                    <td class="d-flex justify-content-around p-4">
                         <div class="form-check form-check-success">
                             <input class="form-check-input" type="radio" name="kehadiran[' . $i . ']" id="kehadiran[' . $i . ']" value="H" checked>
                             <label class="form-check-label" for="Success">
@@ -85,7 +85,7 @@ class Module extends Controller
                         </div>
                     </td>
                     <td>
-                        <textarea name="ket[' . $i . ']"></textarea>
+                        <textarea name="ket[' . $i . ']" class="form-control"></textarea>
                     </td>
                 </tr>';
             $i++;
