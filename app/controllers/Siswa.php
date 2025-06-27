@@ -15,44 +15,69 @@ class Siswa extends Controller{
     public function index()
     {
         $data = $this->model->getAll();
-        echo json_encode([
-            'status' => 'success',
-            'data' => $data,
-            'user' => $this->authUser['username']
-        ]);
+        echo json_encode(['status' => 'success', 'data' => $data]);
     }
 
-    // public function store()
-    // {
-    //     $input = json_decode(file_get_contents('php://input'), true);
-    //     // var_dump($input); die;
-    //     if ($this->model('SiswaModel')->create($input)) {
-    //         echo json_encode(['status' => 'success', 'message' => 'Data berhasil ditambahkan']);
-    //     } else {
-    //         http_response_code(500);
-    //         echo json_encode(['status' => 'error', 'message' => 'Gagal menambahkan data']);
-    //     }
-    // }
+    public function show($id)
+    {
+        $data = $this->model->getById($id);
+        echo json_encode(['status' => 'success', 'data' => $data]);
+    }
 
-    // public function update($id)
-    // {
-    //     $input = json_decode(file_get_contents('php://input'), true);
-    //     if ($this->model('SiswaModel')->update($id, $input)) {
-    //         echo json_encode(['status' => 'success', 'message' => 'Data berhasil diperbarui']);
-    //     } else {
-    //         http_response_code(500);
-    //         echo json_encode(['status' => 'error', 'message' => 'Gagal memperbarui data']);
-    //     }
-    // }
+    public function store()
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
 
-    // public function destroy($id)
-    // {
-    //     var_dump($id); die;
-    //     if ($this->model('SiswaModel')->delete($id)) {
-    //         echo json_encode(['status' => 'success', 'message' => 'Data berhasil dihapus']);
-    //     } else {
-    //         http_response_code(500);
-    //         echo json_encode(['status' => 'error', 'message' => 'Gagal menghapus data']);
-    //     }
-    // }
+        if (!$data) {
+            http_response_code(400);
+            echo json_encode(['status' => 'error', 'message' => 'Data tidak valid']);
+            return;
+        }
+
+        $result = $this->model->create([
+            'nis'           => $data['nis'] ?? null,
+            'nisn'          => $data['nisn'] ?? null,
+            'nama'          => $data['nama'] ?? null,
+            'jenis_kelamin' => $data['jenis_kelamin'] ?? null,
+            'tempat_lahir'  => $data['tempat_lahir'] ?? null,
+            'tanggal_lahir' => $data['tanggal_lahir'] ?? null,
+            'no_hp'         => $data['no_hp'] ?? null,
+            'alamat'        => $data['alamat'] ?? null,
+        ]);
+
+        if ($result > 0) {
+            echo json_encode(['status' => 'success', 'message' => 'Siswa ditambahkan']);
+        } else {
+            http_response_code(500);
+            echo json_encode(['status' => 'error', 'message' => 'Gagal menambahkan siswa']);
+        }
+    }
+
+    public function update($id)
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        if (!$data || !is_array($data)) {
+            http_response_code(400);
+            echo json_encode(['status' => 'error', 'message' => 'Data tidak valid']);
+            return;
+        }
+
+        $result = $this->model->update($id, $data);
+
+        if ($result > 0) {
+            echo json_encode(['status' => 'success', 'message' => 'Siswa diperbarui']);
+        } else {
+            http_response_code(404);
+            echo json_encode(['status' => 'error', 'message' => 'Tidak ada perubahan atau siswa tidak ditemukan']);
+        }
+    }
+
+
+    public function destroy($id)
+    {
+        $deleted = $this->model->delete($id);
+        echo json_encode(['status' => 'deleted', 'result' => $deleted]);
+    }
+
 }
