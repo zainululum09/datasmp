@@ -31,4 +31,5 @@ class Login extends Controller
         $token = Auth::generateToken($user);
         echo json_encode(['status' => 'success', 'token' => $token]);
     }
+
 }
