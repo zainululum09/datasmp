@@ -11,21 +11,21 @@ class SiswaModel
 
     public function getAll()
     {
-        $sql = "SELECT * FROM `siswa` ORDER BY `nis` ASC";
+        $sql = "SELECT * FROM `peserta_didik` ORDER BY `nipd` ASC";
         $this->db->query($sql);
         return $this->db->resultset();
     }
     
     public function getById($id)
     {
-        $this->db->query("SELECT * FROM siswa WHERE id = :id");
+        $this->db->query("SELECT * FROM `peserta_didik` WHERE peserta_didik_id = :id");
         $this->db->bind(':id', $id);
         return $this->db->single();
     }
     
     public function getKelas()
     {
-        $sql = "SELECT `kelas`.`id`, `kelas`.`nama_kelas`, `kelas`.`tingkat`, `kelas`.`tahun_ajaran_id`, `tahun_ajaran`.`nama` FROM `kelas` JOIN `tahun_ajaran` ON `kelas`.`tahun_ajaran_id` = `tahun_ajaran`.`id` ORDER BY `kelas`.`nama_kelas` ASC";
+        $sql = "SELECT `rombongan_belajar`.`rombongan_belajar_id`, `rombongan_belajar`.`nama`, `rombongan_belajar`.`tingkat_pendidika_id`, `rombongan_belajar`.`semester_id`, `tahun_ajaran`.`nama` FROM `rombongan_belajar` JOIN `tahun_ajaran` ON `rombongan_belajar`.`semester_id` = `tahun_ajaran`.`nama` ORDER BY `rombongan_belajar`.`nama` ASC";
         $this->db->query($sql);
         return $this->db->resultset();
     }
@@ -33,8 +33,8 @@ class SiswaModel
 
     public function create($data)
     {
-        $query = "INSERT INTO siswa (nis, nisn, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, no_hp, alamat, created_at, updated_at) 
-                VALUES (:nis, :nisn, :nama, :jenis_kelamin, :tempat_lahir, :tanggal_lahir, :no_hp, :alamat, NOW(), NOW())";
+        $query = "INSERT INTO siswa (nipd, nisn, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, no_hp, alamat, created_at, updated_at) 
+                VALUES (:nipd, :nisn, :nama, :jenis_kelamin, :tempat_lahir, :tanggal_lahir, :no_hp, :alamat, NOW(), NOW())";
 
         $this->db->query($query);
         foreach ($data as $key => $val) {
